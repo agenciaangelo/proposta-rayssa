@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta — Estruturação de Perfil no Instagram | Agência Ângelo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --lj: #E8601A;
+    --lj2: #F07A35;
+    --lj3: #C44D0E;
+    --off: #FAF7F2;
+    --off2: #F0EBE1;
+    --off3: #E4DDD2;
+    --dark: #0F0E0C;
+    --dark2: #1A1916;
+    --dark3: #252320;
+    --texto: #1A1916;
+    --suave: #6E6860;
+    --tw: rgba(255,255,255,0.88);
+    --ts: rgba(255,255,255,0.42);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--off);
+    color: var(--texto);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(15,14,12,0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0 60px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--lj); }
+  .nav-logo img { height: 26px; width: auto; object-fit: contain; }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.38);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--lj); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Linhas diagonais decorativas */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 800px; height: 800px;
+    border: 1px solid rgba(232,96,26,0.07);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    border: 1px solid rgba(232,96,26,0.1);
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 70% 30%, rgba(232,96,26,0.12) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 920px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: end;
+  }
+
+  .hero-left {}
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--lj);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: up 0.7s 0.1s forwards;
+  }
+  .hero-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--lj); }
+
+  .hero-h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 7vw, 86px);
+    font-weight: 300;
+    line-height: 1.0;
+    color: white;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: up 0.7s 0.25s forwards;
+  }
+  .hero-h1 strong { font-weight: 700; display: block; }
+  .hero-h1 em { font-style: italic; color: var(--lj2); font-weight: 300; }
+
+  .hero-p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--ts);
+    max-width: 420px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: up 0.7s 0.4s forwards;
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    opacity: 0;
+    animation: up 0.7s 0.55s forwards;
+    padding-bottom: 4px;
+  }
+
+  .hero-meta-item {
+    text-align: right;
+  }
+
+  .hero-meta-item label {
+    display: block;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 3px;
+  }
+
+  .hero-meta-item span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--tw);
+  }
+
+  .hero-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255,255,255,0.1);
+    align-self: center;
+    margin: 0 auto;
+  }
+
+  @keyframes up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── LAYOUT ── */
+  .sec { padding: 88px 60px; }
+  .sec-inner { max-width: 920px; margin: 0 auto; }
+  .sec-dark { background: var(--dark2); }
+  .sec-mid  { background: var(--off2); }
+  .divisor  { border: none; border-top: 1px solid var(--off3); }
+
+  /* ── HEADER ── */
+  .sh {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .sh-n {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--lj);
+    flex-shrink: 0;
+  }
+
+  .sh-t {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--texto);
+    line-height: 1.1;
+  }
+
+  .sec-dark .sh-t { color: white; }
+  .sec-dark .sh-n { color: var(--lj2); }
+
+  /* ── INCLUSO ── */
+  .incluso-intro {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--suave);
+    max-width: 600px;
+    line-height: 1.85;
+    margin-bottom: 44px;
+  }
+
+  .incluso-lista {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .incluso-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 22px 24px;
+    background: white;
+    border: 1px solid var(--off3);
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .incluso-item:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.06); }
+
+  .incluso-icon {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    background: rgba(232,96,26,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .incluso-txt h4 {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--texto);
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+
+  .incluso-txt p {
+    font-size: 12.5px;
+    color: var(--suave);
+    line-height: 1.6;
+  }
+
+  /* ── PLANOS ── */
+  .planos-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+
+  .plano {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s;
+  }
+  .plano:hover { transform: translateY(-3px); }
+
+  .plano::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .plano.rec::before {
+    background: linear-gradient(90deg, var(--lj3), var(--lj2));
+  }
+
+  .plano-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--lj);
+    background: rgba(232,96,26,0.1);
+    border: 1px solid rgba(232,96,26,0.25);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    align-self: flex-start;
+  }
+
+  .plano-nome {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .plano-nome em { font-style: italic; color: var(--lj2); }
+
+  .plano-sub {
+    font-size: 12px;
+    color: var(--ts);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  .plano-valor {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 60px;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .plano-valor sup {
+    font-size: 22px;
+    vertical-align: super;
+    color: var(--lj);
+    margin-right: 3px;
+    font-weight: 400;
+  }
+
+  .plano-ciclo {
+    font-size: 12px;
+    color: var(--ts);
+    margin-bottom: 32px;
+  }
+
+  .plano-ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    margin-bottom: 28px;
+  }
+
+  .plano-ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.52);
+    line-height: 1.5;
+  }
+
+  .plano-ul li::before {
+    content: '✓';
+    color: var(--lj);
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .plano-ul li.plus::before {
+    content: '+';
+    color: var(--lj2);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 0;
+  }
+
+  .plano-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(232,96,26,0.1);
+    border: 1px solid rgba(232,96,26,0.3);
+    color: var(--lj2);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 13px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+    margin-top: auto;
+  }
+  .plano-cta:hover {
+    background: rgba(232,96,26,0.2);
+    border-color: rgba(232,96,26,0.5);
+  }
+
+  /* ── ADICIONAL ── */
+  .adicional-box {
+    background: var(--dark3);
+    border: 1px solid rgba(232,96,26,0.15);
+    border-radius: 12px;
+    padding: 32px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .adicional-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--lj3), var(--lj2));
+    opacity: 0.6;
+  }
+
+  .adicional-label {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--lj);
+    margin-bottom: 10px;
+  }
+
+  .adicional-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .adicional-p {
+    font-size: 13.5px;
+    color: var(--ts);
+    line-height: 1.75;
+    max-width: 620px;
+    margin-bottom: 20px;
+  }
+
+  .adicional-itens {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .adicional-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .adicional-item span {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .adicional-item strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin-left: 6px;
+  }
+
+  /* ── PRAZO E PAGAMENTO ── */
+  .pp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .pp-card {
+    background: white;
+    border: 1px solid var(--off3);
+    border-radius: 12px;
+    padding: 32px;
+  }
+
+  .pp-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--lj);
+    margin-bottom: 12px;
+  }
+
+  .pp-h {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--texto);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .pp-p {
+    font-size: 13.5px;
+    color: var(--suave);
+    line-height: 1.75;
+  }
+
+  /* ── CTA ── */
+  .cta-sec {
+    background: var(--dark);
+    padding: 96px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-sec::after {
+    content: '';
+    position: absolute;
+    bottom: -200px; right: -100px;
+    width: 700px; height: 600px;
+    background: radial-gradient(ellipse, rgba(232,96,26,0.14) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    max-width: 920px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .cta-h {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .cta-h em { font-style: italic; color: var(--lj2); }
+
+  .cta-p {
+    font-size: 14.5px;
+    color: var(--ts);
+    line-height: 1.75;
+    max-width: 460px;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--lj);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .cta-btn:hover { background: var(--lj2); transform: translateY(-2px); }
+
+  /* ── RODAPÉ ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 36px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .ft-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+  }
+  .ft-logo img { height: 24px; width: auto; object-fit: contain; }
+  .ft-logo span { color: var(--lj); }
+
+  .ft-info {
+    font-size: 12px;
+    color: rgba(255,255,255,0.28);
+    text-align: right;
+    line-height: 1.9;
+  }
+
+  /* ── RESPONSIVO ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 28px 60px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 24px; }
+    .hero-meta-item { text-align: left; }
+    .hero-divider { display: none; }
+    .sec { padding: 64px 28px; }
+    .cta-sec { padding: 64px 28px; }
+    .incluso-lista, .planos-wrap, .pp-grid { grid-template-columns: 1fr; }
+    .cta-inner { grid-template-columns: 1fr; gap: 28px; }
+    footer { padding: 32px 24px; }
+    .ft-info { text-align: left; }
+    .adicional-itens { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span><span style="color:var(--lj);">Agência</span> Ângelo</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#incluso">O que inclui</a></li>
+    <li><a href="#planos">Planos</a></li>
+    <li><a href="#prazo">Prazo</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">Proposta de Serviço · Instagram</div>
+      <h1 class="hero-h1">
+        <em>Estruturação</em><br>
+        <strong>de Perfil no<br>Instagram</strong>
+      </h1>
+      <p class="hero-p">Os primeiros passos da sua presença digital — com identidade visual, biografia e conteúdo estratégico para uma psicóloga recém-formada que quer se posicionar com profissionalismo.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-meta-item">
+        <label>Preparado para</label>
+        <span>Rayssa — Psicóloga</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta-item">
+        <label>Preparado por</label>
+        <span>Adson Ângelo</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta-item">
+        <label>Data</label>
+        <span>Maio de 2026</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta-item">
+        <label>Prazo de entrega</label>
+        <span>Até 15 dias</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE ESTÁ INCLUSO -->
+<section id="incluso" class="sec">
+  <div class="sec-inner">
+    <div class="sh"><span class="sh-n">01.</span><h2 class="sh-t">O que está incluso</h2></div>
+    <p class="incluso-intro">Tudo que você precisa para ter um perfil profissional, estratégico e pronto para crescer — da análise técnica ao planejamento de conteúdo.</p>
+    <div class="incluso-lista">
+      <div class="incluso-item">
+        <div class="incluso-icon">🎙️</div>
+        <div class="incluso-txt">
+          <h4>Consultoria de 30 minutos</h4>
+          <p>Sessão ao vivo para tirar dúvidas, alinhar expectativas e entender seu posicionamento como psicóloga.</p>
+        </div>
+      </div>
+      <div class="incluso-item">
+        <div class="incluso-icon">🔍</div>
+        <div class="incluso-txt">
+          <h4>Análise dos pontos de melhoria</h4>
+          <p>Diagnóstico completo do perfil atual — o que está funcionando, o que precisa mudar e o que está faltando.</p>
+        </div>
+      </div>
+      <div class="incluso-item">
+        <div class="incluso-icon">🎨</div>
+        <div class="incluso-txt">
+          <h4>Definição da paleta de cores</h4>
+          <p>Escolha de cores que representem sua identidade profissional e criem coerência visual no feed.</p>
+        </div>
+      </div>
+      <div class="incluso-item">
+        <div class="incluso-icon">✍️</div>
+        <div class="incluso-txt">
+          <h4>Reformulação da biografia</h4>
+          <p>Análise e reescrita da bio para comunicar claramente quem você é, o que faz e como o cliente pode te encontrar.</p>
+        </div>
+      </div>
+      <div class="incluso-item">
+        <div class="incluso-icon">⚙️</div>
+        <div class="incluso-txt">
+          <h4>Análise de configurações</h4>
+          <p>Verificação de conta comercial, categoria profissional, verificação em duas etapas e demais configurações estratégicas.</p>
+        </div>
+      </div>
+      <div class="incluso-item">
+        <div class="incluso-icon">📝</div>
+        <div class="incluso-txt">
+          <h4>Planejamento de 6 publicações em arte</h4>
+          <p>Textos e roteiros estratégicos para 6 posts em formato de arte — prontos para serem enviados ao designer.</p>
+        </div>
+      </div>
+      <div class="incluso-item" style="grid-column: span 2;">
+        <div class="incluso-icon">🎬</div>
+        <div class="incluso-txt">
+          <h4>Planejamento de 3 publicações em vídeo</h4>
+          <p>Roteiros completos para 3 vídeos (reels ou stories) — com tema, estrutura de texto e orientações de gravação.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divisor">
+
+<!-- PLANOS -->
+<section id="planos" class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="sh"><span class="sh-n">02.</span><h2 class="sh-t">Escolha o seu plano</h2></div>
+    <p style="color:var(--ts); font-size:14.5px; line-height:1.8; max-width:580px; margin-bottom:40px;">Os dois planos incluem tudo listado acima. A diferença está na <strong style="color:var(--tw);">execução</strong> — se você quer só o planejamento ou tudo produzido e pronto para publicar.</p>
+
+    <div class="planos-wrap">
+
+      <!-- Plano 01 -->
+      <div class="plano">
+        <div class="plano-badge">Plano 01</div>
+        <div class="plano-nome">Estruturação<br><em>com planejamento</em></div>
+        <div class="plano-sub">Consultoria + diagnóstico + paleta + bio + configurações + planejamento de conteúdo</div>
+        <div class="plano-valor"><sup>R$</sup>200<span style="font-size:26px; color:rgba(255,255,255,0.4)">,00</span></div>
+        <div class="plano-ciclo">pagamento único · entrega em até 15 dias</div>
+        <ul class="plano-ul">
+          <li>Consultoria de 30 minutos</li>
+          <li>Diagnóstico e análise do perfil</li>
+          <li>Definição da paleta de cores</li>
+          <li>Reformulação da biografia</li>
+          <li>Análise das configurações do Instagram</li>
+          <li>Planejamento de 6 posts em arte (texto pronto)</li>
+          <li>Planejamento de 3 vídeos (roteiros prontos)</li>
+        </ul>
+        <a href="https://wa.me/5584991236489?text=Ol%C3%A1%2C+Adson%21+Quero+seguir+com+o+Plano+01+%E2%80%94+Estrutura%C3%A7%C3%A3o+com+planejamento+%28R%24+200%2C00%29.+Sou+a+Rayssa+Psic%C3%B3loga." target="_blank" class="plano-cta">
+          💬 Quero o Plano 01
+        </a>
+      </div>
+
+      <!-- Plano 02 -->
+      <div class="plano rec">
+        <div class="plano-badge">★ Plano 02 — Completo</div>
+        <div class="plano-nome">Estruturação<br><em>com execução</em></div>
+        <div class="plano-sub">Tudo do Plano 01 + produção das artes + gravação e edição dos vídeos</div>
+        <div class="plano-valor"><sup>R$</sup>600<span style="font-size:26px; color:rgba(255,255,255,0.4)">,00</span></div>
+        <div class="plano-ciclo">pagamento único · entrega em até 15 dias</div>
+        <ul class="plano-ul">
+          <li>Consultoria de 30 minutos</li>
+          <li>Diagnóstico e análise do perfil</li>
+          <li>Definição da paleta de cores</li>
+          <li>Reformulação da biografia</li>
+          <li>Análise das configurações do Instagram</li>
+          <li>Planejamento de 6 posts em arte (texto pronto)</li>
+          <li>Planejamento de 3 vídeos (roteiros prontos)</li>
+          <li class="plus">Produção das 6 artes (design completo)</li>
+          <li class="plus">Gravação e edição dos 3 vídeos</li>
+        </ul>
+        <a href="https://wa.me/5584991236489?text=Ol%C3%A1%2C+Adson%21+Quero+seguir+com+o+Plano+02+%E2%80%94+Estrutura%C3%A7%C3%A3o+com+execu%C3%A7%C3%A3o+%28R%24+600%2C00%29.+Sou+a+Rayssa+Psic%C3%B3loga." target="_blank" class="plano-cta">
+          💬 Quero o Plano 02
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Adicional opcional -->
+    <div class="adicional-box">
+      <div class="adicional-label">Adicional opcional</div>
+      <div class="adicional-titulo">Quer só parte da execução?</div>
+      <p class="adicional-p">Caso prefira adicionar apenas a produção de artes <em>ou</em> apenas os vídeos ao Plano 01, cada módulo pode ser contratado separadamente:</p>
+      <div class="adicional-itens">
+        <div class="adicional-item">
+          <span>🎨 Produção das 6 artes</span>
+          <strong>R$ 300</strong>
+        </div>
+        <div class="adicional-item">
+          <span>🎬 Gravação e edição dos 3 vídeos</span>
+          <strong>R$ 300</strong>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRAZO E PAGAMENTO -->
+<section id="prazo" class="sec sec-mid">
+  <div class="sec-inner">
+    <div class="sh"><span class="sh-n">03.</span><h2 class="sh-t">Prazo e pagamento</h2></div>
+    <div class="pp-grid">
+      <div class="pp-card">
+        <div class="pp-label">Prazo de entrega</div>
+        <div class="pp-h">Até 15 dias</div>
+        <p class="pp-p">A entrega de todos os itens — planejamento, artes e vídeos (quando aplicável) — será realizada em até 15 dias corridos a partir do início do serviço.</p>
+      </div>
+      <div class="pp-card">
+        <div class="pp-label">Forma de pagamento</div>
+        <div class="pp-h">100% no início</div>
+        <p class="pp-p">O pagamento é realizado integralmente no dia em que iniciarmos o serviço. Após a confirmação, já começamos o trabalho imediatamente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IDENTIDADE VISUAL -->
+<section class="sec" id="identidade" style="background:#F0EBE1;">
+  <div class="sec-inner">
+    <div class="sh"><span class="sh-n">04.</span><h2 class="sh-t">Adicional — Identidade Visual</h2></div>
+    <p style="color:var(--suave); font-size:15px; line-height:1.85; max-width:600px; margin-bottom:40px;">Para quem quer começar com uma marca profissional do zero — logotipo, paleta, tipografia e manual completo, tudo alinhado com o seu posicionamento como psicóloga.</p>
+
+    <div style="background:var(--dark); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:40px 36px; position:relative; overflow:hidden; max-width:680px;">
+      <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#C44D0E,#F07A35);"></div>
+
+      <div style="font-size:9.5px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#E8601A; margin-bottom:12px;">Pacote Identidade Visual Completa</div>
+      <div style="font-size:22px; font-weight:700; color:white; line-height:1.2; margin-bottom:28px;">Criação de Marca<br>+ Manual de Identidade Visual</div>
+
+      <div style="font-size:64px; font-weight:800; color:white; line-height:1; margin-bottom:4px; letter-spacing:-0.02em;">
+        <sup style="font-size:22px; vertical-align:super; color:#E8601A; margin-right:3px; font-weight:500;">R$</sup>500
+      </div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:32px;">pagamento único · entrega em até 15 dias</div>
+
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:11px; margin-bottom:28px;">
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:rgba(255,255,255,0.58); line-height:1.5;"><span style="color:#E8601A; font-size:11px; font-weight:700; flex-shrink:0; margin-top:2px;">✓</span>Criação do logotipo</li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:rgba(255,255,255,0.58); line-height:1.5;"><span style="color:#E8601A; font-size:11px; font-weight:700; flex-shrink:0; margin-top:2px;">✓</span>Definição da paleta de cores</li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:rgba(255,255,255,0.58); line-height:1.5;"><span style="color:#E8601A; font-size:11px; font-weight:700; flex-shrink:0; margin-top:2px;">✓</span>Definição de tipografia</li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:rgba(255,255,255,0.58); line-height:1.5;"><span style="color:#E8601A; font-size:11px; font-weight:700; flex-shrink:0; margin-top:2px;">✓</span>Manual de Identidade Visual (MIV)</li>
+        <li style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:rgba(255,255,255,0.58); line-height:1.5;"><span style="color:#E8601A; font-size:11px; font-weight:700; flex-shrink:0; margin-top:2px;">✓</span>Arquivos finais em todos os formatos (PNG, SVG, PDF)</li>
+      </ul>
+
+      <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09); border-radius:8px; padding:14px 18px; margin-bottom:24px; font-size:12.5px; color:rgba(255,255,255,0.45); line-height:1.7;">
+        💡 Pagamento: <strong style="color:rgba(255,255,255,0.7);">50% para iniciar</strong> e <strong style="color:rgba(255,255,255,0.7);">50% na aprovação final</strong>.
+      </div>
+
+      <a href="https://wa.me/5584991236489?text=Ol%C3%A1%2C+Adson%21+Tenho+interesse+no+pacote+de+Identidade+Visual+%28R%24+500%2C00%29+junto+com+a+proposta+de+Instagram+%E2%80%94+Rayssa+Psic%C3%B3loga." target="_blank" style="display:flex; align-items:center; justify-content:center; gap:8px; background:rgba(232,96,26,0.12); border:1px solid rgba(232,96,26,0.35); color:#F07A35; font-size:11.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:14px 20px; border-radius:8px; text-decoration:none;">
+        💬 Quero a Identidade Visual também
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-sec">
+  <div class="cta-inner">
+    <div>
+      <h2 class="cta-h">Pronta para dar os primeiros passos<br><em>no Instagram?</em></h2>
+      <p class="cta-p">Escolha o plano ideal para esse momento de início de carreira e já começamos a construir sua presença digital. Estou à disposição pelo WhatsApp.</p>
+    </div>
+    <a href="https://wa.me/5584991236489?text=Ol%C3%A1%2C+Adson%21+Tenho+interesse+na+proposta+de+Estrutura%C3%A7%C3%A3o+de+Perfil+no+Instagram+%E2%80%94+Rayssa+Psic%C3%B3loga." target="_blank" class="cta-btn">
+      💬 Falar pelo WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- RODAPÉ -->
+<footer>
+  <div class="ft-logo">
+    <span><span style="color:var(--lj);">Agência</span> Ângelo</span>
+  </div>
+  <div class="ft-info">
+    Adson Ângelo · contato@agenciaangelo.com.br<br>
+    Proposta válida por 15 dias · Maio 2026
+  </div>
+</footer>
+
+</body>
+</html>
+
